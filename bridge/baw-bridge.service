@@ -1,0 +1,16 @@
+[Unit]
+Description=Prediction autotrader Binance Agentic Wallet bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Environment=HOME=/root
+EnvironmentFile=/opt/prediction-autotrader/bridge/bridge.env
+ExecStart=/usr/bin/python3 /opt/prediction-autotrader/bridge/baw_bridge.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

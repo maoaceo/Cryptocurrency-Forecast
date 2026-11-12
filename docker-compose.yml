@@ -1,0 +1,18 @@
+services:
+  autotrader:
+    build: .
+    restart: unless-stopped
+    init: true
+    ports:
+      - "127.0.0.1:${APP_PORT:-8790}:8790"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file: .env
+    environment:
+      PUBLIC_READONLY: ${PUBLIC_READONLY:-0}
+      EXECUTOR_PATH: ${EXECUTOR_PATH:-sapi}
+      BAW_BRIDGE_URL: ${BAW_BRIDGE_URL:-http://host.docker.internal:8791}
+      BAW_BRIDGE_TOKEN: ${BAW_BRIDGE_TOKEN:-}
+    volumes:
+      - ./data:/app/data
+      - ./secrets:/app/secrets:ro
